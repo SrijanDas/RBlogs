@@ -5,12 +5,21 @@ export type User = {
 };
 
 export type Blog = {
-    _id: Types.ObjectId;
+    _id: string;
     title: string;
     content: string;
     createdBy: User;
     comments: number;
     likes: number;
+    createdAt: Date;
+    updatedAt: Date;
+};
+
+export type Comment = {
+    _id: string;
+    blogId: string;
+    content: string;
+    createdBy: User;
     createdAt: Date;
     updatedAt: Date;
 };

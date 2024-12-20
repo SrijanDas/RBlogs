@@ -7,14 +7,21 @@ type Props = {
     modal: Disclosure;
     onConfirm: () => void;
     onCancel: () => void;
+    itemName: string;
     loading?: boolean;
 };
 
-function ConfirmationModal({ onConfirm, loading, modal, onCancel }: Props) {
+function ConfirmationModal({
+    onConfirm,
+    loading,
+    modal,
+    onCancel,
+    itemName,
+}: Props) {
     return (
         <Dialog open={modal.open} onOpenChange={modal.opOpenChange}>
             <DialogContent>
-                Are you sure you want to delete this blog?
+                Are you sure you want to delete this {itemName}?
                 <DialogFooter className="flex-row gap-2">
                     <Button onClick={onConfirm} disabled={loading}>
                         Yes, delete

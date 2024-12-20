@@ -55,7 +55,7 @@ function BlogForm({ modal, defaultValues }: Props) {
                 });
                 if (res.data.success) {
                     queryClient.invalidateQueries({ queryKey: ["blogs"] });
-
+                    form.reset();
                     modal.opOpenChange(false);
                 } else {
                     toast.error("Error posting blog");

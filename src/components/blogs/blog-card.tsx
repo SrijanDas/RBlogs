@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { Link } from "react-router";
 import { Blog } from "@/types";
+import { MessageCircleIcon } from "lucide-react";
 
 type Props = {
     blog: Blog;
@@ -34,8 +35,9 @@ function BlogCard({ blog }: Props) {
                             ? blog.content.slice(0, 100) + "..."
                             : blog.content}
                     </p>
-                    <div className="mt-4 font-semibold">
-                        {blog.comments} comments
+                    <div className="flex items-center mt-4">
+                        <MessageCircleIcon className="w-5 h-5 mr-1" />
+                        <p className="text-sm">{blog.comments} comments</p>
                     </div>
                 </CardContent>
             </Link>
