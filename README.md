@@ -1,10 +1,10 @@
-# RBlogs
+# [RBlogs](https://r-blogs-frontend.vercel.app/)
 
 Read and wrote blogs
 
 ## Tech Stack
 
-**Frontend:** Typescript, Vite, React, Shadcn, Tailwind-css [(Backend Repo URL)](https://github.com/SrijanDas/RBlogs)
+**Frontend:** Typescript, Vite, React, Shadcn, Tailwind-css [(Frontend Repo URL)](https://github.com/SrijanDas/RBlogs)
 
 **Backend:** Typescript, Nodejs, Express [(Backend Repo URL)](https://github.com/SrijanDas/RBlogs-api)
 
