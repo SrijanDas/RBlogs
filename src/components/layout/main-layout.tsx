@@ -5,7 +5,7 @@ function MainLayout({ children }: React.PropsWithChildren) {
     return (
         <div className="w-full min-h-screen">
             <Navbar />
-            {children}
+            <div className="max-w-3xl mx-auto">{children}</div>
         </div>
     );
 }

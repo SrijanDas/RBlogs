@@ -20,6 +20,7 @@ import axiosInstance from "@/lib/axios";
 import { IAxiosError } from "@/types/custom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
@@ -148,8 +149,18 @@ function RegisterPage() {
                                     </FormItem>
                                 )}
                             />
-                            <Button className="w-full" type="submit">
+                            <Button
+                                disabled={form.formState.isSubmitting}
+                                className="w-full"
+                                type="submit"
+                            >
                                 Register
+                                {form.formState.isSubmitting && (
+                                    <Loader2
+                                        className="ml-2 animate-spin"
+                                        size={20}
+                                    />
+                                )}
                             </Button>
                         </form>
                     </Form>
