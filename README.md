@@ -22,6 +22,10 @@ Read and wrote blogs
 -   [ ] Commenting on a blog
 -   [ ] Likes on blogs
 -   [ ] Add a rich text editor
+-   [ ] Email verification
+-   [ ] Change Password
+-   [ ] Edit Profile
+-   [ ] Notifications
 
 ## Run Locally
 
