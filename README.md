@@ -10,6 +10,19 @@ Read and wrote blogs
 
 **Database:** MongoDB
 
+## Features
+
+-   [x] Fully Responsive
+-   [x] User Authentication with JWT
+-   [x] Posting Blogs
+-   [x] CRUD operations on Blogs
+
+## Features to be added later in the future
+
+-   [ ] Commenting on a blog
+-   [ ] Likes on blogs
+-   [ ] Add a rich text editor
+
 ## Run Locally
 
 Setup ENV variables
