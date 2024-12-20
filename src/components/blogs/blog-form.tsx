@@ -47,7 +47,12 @@ function BlogForm({ modal, defaultValues }: Props) {
         try {
             if (!defaultValues) {
                 // create new blog
-                const res = await axiosInstance.post("/blogs", data);
+                const res = await axiosInstance.post("/blogs", data, {
+                    headers: {
+                        Authorization:
+                            "Bearer " + localStorage.getItem("token"),
+                    },
+                });
                 if (res.data.success) {
                     queryClient.invalidateQueries({ queryKey: ["blogs"] });
 
@@ -62,6 +67,12 @@ function BlogForm({ modal, defaultValues }: Props) {
                     {
                         id: defaultValues._id,
                         ...data,
+                    },
+                    {
+                        headers: {
+                            Authorization:
+                                "Bearer " + localStorage.getItem("token"),
+                        },
                     }
                 );
                 if (res.data.success) {

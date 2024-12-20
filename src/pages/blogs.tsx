@@ -23,7 +23,13 @@ function BlogsPage() {
         queryKey: ["blogs"],
         queryFn: async () => {
             const res = await axiosInstance.get(
-                `/blogs?limit=${LIMIT}&page=${page}`
+                `/blogs?limit=${LIMIT}&page=${page}`,
+                {
+                    headers: {
+                        Authorization:
+                            "Bearer " + localStorage.getItem("token"),
+                    },
+                }
             );
             // console.log(res);
             return res.data.blogs;

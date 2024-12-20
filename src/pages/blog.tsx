@@ -24,7 +24,11 @@ function BlogPage() {
     const { data, error, isLoading } = useQuery({
         queryKey: ["blog", { id: blogId }],
         queryFn: async () => {
-            const response = await axiosInstance.get(`/blogs/${blogId}`);
+            const response = await axiosInstance.get(`/blogs/${blogId}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
             if (response.data.success) {
                 return response.data.blog as Blog;
             }
@@ -34,7 +38,11 @@ function BlogPage() {
     async function deleteBlog() {
         try {
             setIsDeleting(true);
-            const res = await axiosInstance.delete(`/blogs/${blogId}`);
+            const res = await axiosInstance.delete(`/blogs/${blogId}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
             if (res.data.success) {
                 navigate("/blogs");
                 toast.success("Blog deleted successfully");
