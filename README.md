@@ -24,6 +24,7 @@ Read and wrote blogs
 -   [ ] Add a rich text editor
 -   [ ] Email verification
 -   [ ] Change Password
+-   [ ] Image uploads
 -   [ ] Edit Profile
 -   [ ] Notifications
 
