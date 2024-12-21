@@ -1,4 +1,4 @@
-import { Comment, User } from "@/types";
+import { Comment } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -18,6 +18,7 @@ import axios from "axios";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
+import { useAppSelector } from "@/hooks/redux";
 
 type Props = {
     blogId: string;
@@ -32,9 +33,7 @@ const FormSchema = z.object({
 });
 
 function CommentForm({ defaultValues, blogId, cb }: Props) {
-    const currentUser: User = JSON.parse(
-        localStorage.getItem("user") as string
-    );
+    const currentUser = useAppSelector((state) => state.auth.user);
     const queryClient = useQueryClient();
 
     const form = useForm<z.infer<typeof FormSchema>>({
@@ -108,7 +107,7 @@ function CommentForm({ defaultValues, blogId, cb }: Props) {
     return (
         <div className="flex gap-2">
             <Avatar>
-                <AvatarFallback>{currentUser.name.charAt(0)}</AvatarFallback>
+                <AvatarFallback>{currentUser?.name.charAt(0)}</AvatarFallback>
             </Avatar>
             <Form {...form}>
                 <form

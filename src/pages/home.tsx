@@ -1,7 +1,13 @@
+import { useAppSelector } from "@/hooks/redux";
 import { Navigate } from "react-router";
 
 function HomePage() {
-    return <Navigate to="/login" />;
+    const user = useAppSelector((state) => state.auth.user);
+
+    if (!user) {
+        return <Navigate to="/login" />;
+    }
+    return <Navigate to="/blogs" />;
 }
 
 export default HomePage;

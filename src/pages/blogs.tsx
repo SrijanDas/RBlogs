@@ -1,21 +1,20 @@
 import MainLayout from "@/components/layout/main-layout";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardHeader } from "@/components/ui/card";
-import { Blog, User } from "@/types";
+import { Blog } from "@/types";
 import CreateBlog from "@/components/blogs/blog-form";
 import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "@/lib/axios";
 import FallBackLoader from "@/components/shared/fallback-loader";
 import BlogCard from "@/components/blogs/blog-card";
 import useDisclosure from "@/hooks/use-disclosure";
+import { useAppSelector } from "@/hooks/redux";
 
 const LIMIT = 20;
 
 function BlogsPage() {
     const modal = useDisclosure();
-    const user: User = localStorage.getItem("user")
-        ? JSON.parse(localStorage.getItem("user") ?? "")
-        : null;
+    const user = useAppSelector((state) => state.auth.user);
 
     const page = 1;
 
@@ -51,7 +50,7 @@ function BlogsPage() {
                         <div className="flex items-center w-full gap-4">
                             <Avatar>
                                 <AvatarFallback>
-                                    {user.name.charAt(0)}
+                                    {user?.name.charAt(0)}
                                 </AvatarFallback>
                             </Avatar>
                             <p className="text-xl">Write a blog...</p>

@@ -1,17 +1,19 @@
 import { Avatar, AvatarFallback } from "../ui/avatar";
-import { User } from "@/types";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { logout } from "@/redux/auth-reducer";
 
 function Navbar() {
-    const user: User = localStorage.getItem("user")
-        ? JSON.parse(localStorage.getItem("user") ?? "")
-        : null;
+    const user = useAppSelector((state) => state.auth.user);
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const handleLogout = () => {
+        navigate("/login");
         localStorage.clear();
-        window.location.href = "/login";
+        dispatch(logout());
     };
     return (
         <div className="w-full p-4 bg-primary">
@@ -23,16 +25,16 @@ function Navbar() {
                     <PopoverTrigger>
                         <Avatar>
                             <AvatarFallback>
-                                {user.name.charAt(0)}
+                                {user?.name.charAt(0)}
                             </AvatarFallback>
                         </Avatar>
                     </PopoverTrigger>
                     <PopoverContent>
                         <h4 className="font-medium leading-none">
-                            {user.name}
+                            {user?.name}
                         </h4>
                         <p className="text-sm text-muted-foreground">
-                            {user.email}
+                            {user?.email}
                         </p>
                         <Button
                             className="mt-2"

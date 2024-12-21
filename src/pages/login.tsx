@@ -16,7 +16,9 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useAppDispatch } from "@/hooks/redux";
 import axiosInstance from "@/lib/axios";
+import { setUser } from "@/redux/auth-reducer";
 import { IAxiosError } from "@/types/custom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
@@ -35,6 +37,8 @@ const FormSchema = z.object({
 
 function LoginPage() {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
@@ -57,12 +61,7 @@ function LoginPage() {
                 });
 
                 if (userDataRes.data.success) {
-                    // TODO: store it in redux state
-                    localStorage.setItem(
-                        "user",
-                        JSON.stringify(userDataRes.data.user)
-                    );
-
+                    dispatch(setUser({ user: userDataRes.data.user }));
                     navigate("/blogs");
                 } else {
                     toast.error("Error loading user");

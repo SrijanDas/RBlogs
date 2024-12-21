@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/sonner";
 import AuthProvider from "./auth-provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider } from "react-redux";
-import store from "@/redux/store";
+import { store } from "@/redux/store";
 import { useLocation } from "react-router";
 
 const queryClient = new QueryClient();

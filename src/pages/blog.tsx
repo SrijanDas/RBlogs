@@ -6,9 +6,10 @@ import ConfirmationModal from "@/components/shared/confirmation-modal";
 import FallBackLoader from "@/components/shared/fallback-loader";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { useAppSelector } from "@/hooks/redux";
 import useDisclosure from "@/hooks/use-disclosure";
 import axiosInstance from "@/lib/axios";
-import { Blog, User } from "@/types";
+import { Blog } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeftIcon, PencilIcon, Trash2Icon } from "lucide-react";
 import { useState } from "react";
@@ -16,9 +17,7 @@ import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 
 function BlogPage() {
-    const currentUser: User = JSON.parse(
-        localStorage.getItem("user") as string
-    );
+    const currentUser = useAppSelector((state) => state.auth.user);
     const { blogId } = useParams();
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
     const navigate = useNavigate();
@@ -98,7 +97,7 @@ function BlogPage() {
                                     </p>
                                 </div>
                             </div>
-                            {currentUser.userId === data.createdBy.userId && (
+                            {currentUser?.userId === data.createdBy.userId && (
                                 <div className="flex items-center gap-2">
                                     <Button
                                         onClick={() =>

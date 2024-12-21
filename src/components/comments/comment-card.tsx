@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback } from "../ui/avatar";
-import { Comment, User } from "@/types";
+import { Comment } from "@/types";
 import { Button } from "../ui/button";
 import useDisclosure from "@/hooks/use-disclosure";
 import { Dialog, DialogContent } from "../ui/dialog";
@@ -9,6 +9,7 @@ import axiosInstance from "@/lib/axios";
 import ConfirmationModal from "../shared/confirmation-modal";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import { useAppSelector } from "@/hooks/redux";
 
 type Props = {
     comment: Comment;
@@ -16,9 +17,7 @@ type Props = {
 
 function CommentCard({ comment }: Props) {
     const queryClient = useQueryClient();
-    const currentUser: User = JSON.parse(
-        localStorage.getItem("user") as string
-    );
+    const currentUser = useAppSelector((state) => state.auth.user);
     const updateCommentModal = useDisclosure();
     const deleteModal = useDisclosure();
 
@@ -59,7 +58,7 @@ function CommentCard({ comment }: Props) {
             <div>
                 <h6 className="font-semibold">{comment.createdBy.name}</h6>
                 <p className="text-secondary-foreground">{comment.content}</p>
-                {currentUser.userId === comment.createdBy.userId && (
+                {currentUser?.userId === comment.createdBy.userId && (
                     <div className="flex items-center gap-2 mt-2">
                         <Button
                             onClick={() =>
