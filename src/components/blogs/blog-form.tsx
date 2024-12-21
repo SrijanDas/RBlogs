@@ -1,7 +1,5 @@
 import axiosInstance from "@/lib/axios";
-import { IAxiosError } from "@/types/custom";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -21,6 +19,7 @@ import { Dialog, DialogContent } from "../ui/dialog";
 import { Disclosure } from "@/hooks/use-disclosure";
 import { useQueryClient } from "@tanstack/react-query";
 import { Blog } from "@/types";
+import handleError from "@/lib/error-handler";
 
 type Props = {
     modal: Disclosure;
@@ -94,15 +93,8 @@ function BlogForm({ modal, defaultValues }: Props) {
                 }
             }
         } catch (error) {
-            if (axios.isAxiosError(error)) {
-                const err = error as IAxiosError;
-                toast.error(
-                    err.response?.data?.msg ??
-                        "An error occurred. Please try again."
-                );
-            } else {
-                toast.error("An error occurred. Please try again.");
-            }
+            const msg = handleError(error);
+            toast.error(msg);
         }
     }
     return (

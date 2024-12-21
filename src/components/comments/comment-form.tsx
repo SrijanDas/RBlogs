@@ -13,12 +13,11 @@ import { Input } from "@/components/ui/input";
 import axiosInstance from "@/lib/axios";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { IAxiosError } from "@/types/custom";
-import axios from "axios";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
 import { useAppSelector } from "@/hooks/redux";
+import handleError from "@/lib/error-handler";
 
 type Props = {
     blogId: string;
@@ -93,15 +92,8 @@ function CommentForm({ defaultValues, blogId, cb }: Props) {
                 }
             }
         } catch (error) {
-            if (axios.isAxiosError(error)) {
-                const err = error as IAxiosError;
-                toast.error(
-                    err.response?.data?.msg ??
-                        "An error occurred. Please try again."
-                );
-            } else {
-                toast.error("An error occurred. Please try again.");
-            }
+            const msg = handleError(error);
+            toast.error(msg);
         }
     }
     return (

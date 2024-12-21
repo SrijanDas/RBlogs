@@ -17,9 +17,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import axiosInstance from "@/lib/axios";
-import { IAxiosError } from "@/types/custom";
+import handleError from "@/lib/error-handler";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
@@ -63,15 +62,8 @@ function RegisterPage() {
                 toast.error(res.data.msg);
             }
         } catch (error) {
-            if (axios.isAxiosError(error)) {
-                const err = error as IAxiosError;
-                toast.error(
-                    err.response?.data?.msg ??
-                        "An error occurred. Please try again."
-                );
-            } else {
-                toast.error("An error occurred. Please try again.");
-            }
+            const msg = handleError(error);
+            toast.error(msg);
         }
     }
 
